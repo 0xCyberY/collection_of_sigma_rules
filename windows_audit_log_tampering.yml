@@ -1,0 +1,21 @@
+title: Windows Audit Log Tampering
+status: experimental
+description: Detects any tampering done to Windows audit logs.
+references:
+    - https://0xcybery.github.io/blog/Splunk+Use+Cases
+author: '@0xCyberY'
+date: 2022/11/27
+logsource:
+    product: windows
+    service: sysmon
+detection:
+    selection:
+      sourcetype: wineventlog 
+      EventCode: 
+      - 1102
+      - 1100
+      - 104
+    condition: selection
+falsepositives:
+    - Unknown
+level: high
