@@ -48,4 +48,4 @@ fields:
   - UserID
 falsepositives:
     - Unknown
-level: high
+level: critical
