@@ -1,0 +1,51 @@
+title: Suspicious PowerShell Commands
+status: experimental
+description: Detects any suspicious PowerShell commands execution.
+references:
+    - https://0xcybery.github.io/blog/Splunk+Use+Cases
+author: '@0xCyberY'
+date: 2022/11/28
+logsource:
+    product: windows
+    service: sysmon
+detection:
+    selection1:
+      EventCode: 4104
+    selection2:
+      ScriptBlockText|contains|all: 
+         - noni
+         - iex
+         - New-Object
+    selection3:
+      ScriptBlockText|contains|all: 
+         - -ep
+         - bypass
+         - -Enc
+    selection4:
+      ScriptBlockText|contains|all: 
+         - powershell
+         - reg
+         - add
+         - HKCU\software\microsoft\windows\currentversion\run
+    selection5:
+      ScriptBlockText|contains|all: 
+         - -noprofile
+         - -windowstyle
+         - hidden
+         - new-object
+         - system.net.webclient
+         - .download
+    selection6:
+      ScriptBlockText|contains|all: 
+         - iex
+         - New-Object
+         - Net.WebClient
+         - .Download
+    condition: selection1 AND (selection2 OR selection3 OR selection4 OR selection5 OR selection6)
+fields:
+  - Computer
+  - ScriptBlockText
+  - UserID
+falsepositives:
+    - Unknown
+level: high
