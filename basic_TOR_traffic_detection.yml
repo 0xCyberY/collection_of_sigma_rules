@@ -1,0 +1,27 @@
+title: Basic TOR Traffic Detection
+status: experimental
+description: Detects basic TOR traffic.
+references:
+    - https://0xcybery.github.io/blog/Splunk+Use+Cases
+author: '@0xCyberY'
+date: 2022/11/28
+logsource:
+    product: network
+    service: 
+detection:
+    selection:
+      sourcetype: firewall
+      app: tor
+      src_ip: '*'
+    condition: selection
+fields:
+    - time 
+    - src_ip 
+    - src_port 
+    - dest_ip 
+    - dest_port 
+    - bytes 
+    - app
+falsepositives:
+    - Unknown
+level: high

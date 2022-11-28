@@ -7,10 +7,9 @@ author: '@0xCyberY'
 date: 2022/11/27
 logsource:
     product: windows
-    service: sysmon
+    service:  
 detection:
-    selection:
-      sourcetype: wineventlog 
+    selection: 
       EventCode: 
       - 1102
       - 1100

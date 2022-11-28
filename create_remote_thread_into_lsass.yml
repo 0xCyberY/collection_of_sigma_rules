@@ -1,0 +1,18 @@
+title: Create Remote Thread into LSASS
+status: experimental
+description: Detects creation of remote threat into lsass.
+references:
+    - https://0xcybery.github.io/blog/Splunk+Use+Cases
+author: '@0xCyberY'
+date: 2022/11/28
+logsource:
+    product: windows
+    service: sysmon
+detection:
+    selection:
+      EventID: 8
+      TargetImage|endswith: lsass.exe
+    condition: selection
+falsepositives:
+    - Unknown
+level: high

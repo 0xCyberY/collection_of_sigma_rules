@@ -1,0 +1,25 @@
+title: Create Service In Suspicious File Path
+status: experimental
+description: Detects and identify a creation of "user mode service" where the service file path is located in non-common service folder in windows.
+references:
+    - https://0xcybery.github.io/blog/Splunk+Use+Cases
+author: '@0xCyberY'
+date: 2022/11/28
+logsource:
+    product: windows
+    service: system
+detection:
+    selection1:
+      EventCode: 7045
+      Service_File_Name|endswith: '.exe'
+      Service_Type: "user mode service"    
+    selection2:
+      Service_File_Name|startswith: 
+      - 'C:\Windows\'
+      - 'C:\Program File'
+      - 'C:\Programdata\'
+      - '%systemroot%\'
+    condition: selection1 AND NOT selection2
+falsepositives:
+    - Unknown
+level: high

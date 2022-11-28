@@ -1,0 +1,22 @@
+title: Windows audit log cleared
+status: experimental
+description: Detects any security log cleard.
+references:
+    - https://0xcybery.github.io/blog/Splunk+Use+Cases
+author: '@0xCyberY'
+date: 2022/11/28
+logsource:
+    product: windows
+    service: security
+detection:
+    selection1:
+      EventCode: 1102
+    condition: selection1
+fields:
+  - time
+  - host
+  - signature
+  - user
+falsepositives:
+    - Unknown
+level: medium
